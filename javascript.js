@@ -52,6 +52,16 @@ function playRound(playerSelection, computerSelection) {
       const computerSelection = getComputerChoice();
       console.log(playRound(playerSelection, computerSelection));
     }
+    console.log("")
+    if(playerPoints === computerPoints){
+      return("DRAW!");
+    }
+    if(playerPoints>computerPoints){
+      return("You win!")
+    }
+    else{
+      return"You lose!";
+    }
   }
 
-  game();
+  console.log(game());
