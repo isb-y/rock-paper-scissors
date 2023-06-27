@@ -7,51 +7,117 @@ function getComputerChoice() {
   return myArray[~~(Math.random() * myArray.length)];
 }
 
+let gameplayEnabled = true;
+
+function enableGameplay() {
+  gameplayEnabled = true;
+}
+
+function disableGameplay() {
+  gameplayEnabled = false;
+}
+
+
+function playAgain() {
+  // Reset points
+  // Update points display
+  playerPoints = 0;
+  computerPoints = 0;
+  updatePoints('', '', playerPoints, computerPoints);
+
+  // Enable gameplay
+  enableGameplay();
+
+  // Clear winner text
+  winner.textContent = '';
+
+  // Hide the play again button
+  playAgainButton.style.display = 'none';
+}
+
+
 function playRound(playerSelection) {
+  if (!gameplayEnabled) {
+    return;
+  }
+
   let playerSelection_rps = myArray[playerSelection];
   const computerSelection = getComputerChoice();
 
-  content0.textContent = "Player selection: " + playerSelection_rps;
-  container0.appendChild(content0);
-  content1.textContent = "Computer selection: " + computerSelection;
-  container1.appendChild(content1);
+
 
   if (playerSelection_rps === computerSelection) {
-    console.log("DRAW");
+    if (round_Winner) {
+      round_Winner.textContent = 'DRAW!!!';
+    }
   } else if (playerSelection_rps === "Rock") {
     if (computerSelection === "Paper") {
+      if (round_Winner) {
+        round_Winner.textContent = 'Computer wins round!';
+      }
       computerPoints++;
     } else {
+      if (round_Winner) {
+        round_Winner.textContent = 'Player wins round!';
+      }
       playerPoints++;
     }
   } else if (playerSelection_rps === "Paper") {
     if (computerSelection === "Scissors") {
+      if (round_Winner) {
+        round_Winner.textContent = 'Computer wins round!';
+      }
       computerPoints++;
     } else {
+      if (round_Winner) {
+        round_Winner.textContent = 'Player wins round!';
+      }
       playerPoints++;
     }
   } else if (playerSelection_rps === "Scissors") {
     if (computerSelection === "Rock") {
+      if (round_Winner) {
+        round_Winner.textContent = 'Computer wins round!';
+      }
       computerPoints++;
     } else {
+      if (round_Winner) {
+        round_Winner.textContent = 'Player wins round!';
+      }
       playerPoints++;
     }
   }
+  updatePoints(playerSelection_rps, computerSelection, playerPoints, computerPoints);
 
-  content2.textContent = "Player points: " + playerPoints;
-  container2.appendChild(content2);
-  content3.textContent = "Computer points: " + computerPoints;
-  container3.appendChild(content3);
-
-  if(playerPoints > 4){
-    content4.textContent = "You win";
-    container4.appendChild(content4);
-  }
-  if(computerPoints >4){
-    content4.textContent = "You lose";
-    container4.appendChild(content4);
+  if (computerPoints >= 5 || playerPoints >= 5) {
+    if (computerPoints > 4) {
+      winner.textContent = 'You lose :(';
+    } else {
+      winner.textContent = 'You win !!!';
+    }
+    // Show the play again button
+    playAgainButton.style.display = 'block';
+    // Call disableGameplay() initially to prevent gameplay
+    disableGameplay();
   }
   return "Player points:" + playerPoints + ", computerPoints:" + computerPoints;
+}
+
+// Function to update the player points
+function updatePoints(playerSelection_rps, computerSelection, playerPoints, computerPoints) {
+    player_Selection.textContent = 'Player selected: ' + playerSelection_rps;
+    comp_Selection.textContent = 'Computer selected: ' + computerSelection;
+    player_Points.textContent = 'Player points: ' + playerPoints;
+    comp_Points.textContent = 'Computer points: ' + computerPoints;
+}
+
+
+// Function to reset the player points to zero
+function resetPoints(id) {
+  const pointsElement = document.querySelector(id);
+  if (pointsElement) {
+    pointsElement.textContent = 'Player points: 0';
+  }
 }
 
 function game() {
@@ -81,20 +147,21 @@ buttons.forEach((button) => {
   });
 });
 
-const container0 = document.querySelector('#container0');
-const container1 = document.querySelector('#container1');
-const container2 = document.querySelector('#container2');
-const container3 = document.querySelector('#container3');
-const container4 = document.querySelector('#container4');
+// Select individual child elements by their IDs
+const player_Selection = document.querySelector('#playerselection');
+const comp_Selection = document.querySelector('#compselection');
+const player_Points = document.querySelector('#playerpoints');
+const comp_Points = document.querySelector('#comppoints');
+const round_Winner = document.querySelector('#roundwinner');
+const winner = document.querySelector('#winner');
 
-const content0 = document.createElement('div');
-const content1 = document.createElement('div');
-const content2 = document.createElement('div');
-const content3 = document.createElement('div');
-const content4 = document.createElement('div');
+const playAgainButton = document.querySelector('#play-again-button');
+playAgainButton.addEventListener('click', playAgain);
 
-content0.classList.add('content0');
-content1.classList.add('content1');
-content2.classList.add('content2');
-content3.classList.add('content3');
-content4.classList.add('content4');
+// Set text content for each individual container
+player_Selection.textContent = 'Player selected: -';
+comp_Selection.textContent = 'Computer selected: -';
+player_Points.textContent = 'Player points: -';
+comp_Points.textContent = 'Computer points: -';
+round_Winner.textContent = '';
+winner.textContent = '';

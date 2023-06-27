@@ -2,21 +2,29 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
   <script src="javascript.js" defer></script>
   <title>Page Title</title>
 </head>
 <body>
 
   <div id="container">
-    <button id="0">Rock</button>
-    <button id="1">Paper</button>
-    <button id="2">Scissor</button>
-  </div>
+    <button id="0"><img src="images/rock.png" alt="Rock" class="image-button"></button>
+    <button id="1"><img src="images/paper.png" alt="Paper" class="image-button"></button>
+    <button id="2"><img src="images/scissor.png" alt="Scissors" class="image-button"></button>
+  </div>  
+  
 
-  <div id="container0"></div>
-  <div id="container1"></div>
-  <div id="container2"></div>
-  <div id="container3"></div>
+<div id="output">
+  <div id="playerselection"></div>
+  <div id="compselection"></div>
+  <div id="playerpoints"></div>
+  <div id="comppoints"></div>
+  <div id="roundwinner"></div>
+  <div id="winner"></div>
+  <button id="play-again-button">Let's play!</button>
+</div>
+
 
 </body>
 </html>

@@ -1,0 +1,23 @@
+#play-again-button {
+    margin-top: 20px;
+  }
+
+  .image-button {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-button img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #output {
+    margin-top: 20px;
+  }
+  
+  
